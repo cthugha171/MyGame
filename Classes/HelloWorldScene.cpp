@@ -101,54 +101,14 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
 
-	//乱数の初期化
-	srand(time(nullptr));
+   
 
-	for(int i=0;i<1;i++)
-	{
-		sprite[i] = Sprite::create("kuma.png");
-		this->addChild(sprite[i]);
-		sprite[i]->setPosition(Vec2(200*i, visibleSize.height / 2.0f));
-		sprite[i]->setScale(0.2f);
-
-		float mx, my;
-		mx =(float)rand()/RAND_MAX*500-250;
-		my =(float)rand()/RAND_MAX*500-250;
-
-		//アクションの作成(1秒かけて　右の200、上に100動く）
-		//MoveBy*action1 = MoveBy::create(1.0f, Vec2(mx, my));
-
-		//JumpBy*action1 = JumpBy::create(2.0f, Vec2(mx,my), 80.0f, 1);
-
-		/*sprite[i]->setAnchorPoint(Vec2(0, 1));*/
-
-		/*MoveBy*action1 = MoveBy::create(2.0f, Vec2(-100, 0));*/
-
-		//RotateBy*action1 = RotateBy::create(2.0f, Vec3(0, 0, 1000));
-
-		/*sprite[i]->setColor(Color3B(255, 0, 0));
-
-		TintTo*action1 = TintTo::create(2.0f, Color3B(0, 0, 255));*/
-
-		FadeOut*action1 = FadeOut::create(2.0f);
-
-		/*FadeOut*action2 = FadeOut::create(5.0f);*/
-		sprite[i]->runAction(action1);
-		/*sprite[i]->runAction(action2);*/
-	}
-
-	//sprite = Sprite::create("sample05.png");
-	//this->addChild(sprite);
-	//sprite->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
-	//
-	//sprite2 = Sprite::create("kuma.png");
-	//this->addChild(sprite2);
+	sprite = Sprite::create("sample05.png");
+	this->addChild(sprite);
+	sprite->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
 	
-	
-	//sprite2->runAction(action1->clone());
-	/*MoveBy*action2 = MoveBy::create(1.0f, Vec2(200, 100));
-
-	*/
+	//アクションの作成(1秒かけて　右の200、上に100動く）
+	//MoveBy*action1 = MoveBy::create(1.0f, vertex2(200, 100));
 	//ScaleBy*action1 = ScaleBy::create(1.0f,5.0f);	//ノードに対してアクションを実行する
 	//JumpTo*action1 = JumpTo::create(1.0f, Vec2(200, 100), 500.0f, 1);
 
@@ -160,22 +120,17 @@ bool HelloWorld::init()
 
 	//BezierTo*action1 = BezierTo::create(2.0f, conf);
 
-	//フェード
-	/*sprite->setOpacity(0);
+	sprite->setOpacity(0);
 
-	FadeIn* action1 = FadeIn::create(1.0f);*/
+	FadeIn* action1 = FadeIn::create(1.0f);
 
-	//SkewTo*action1 = SkewTo::create(5.0f,4.0f,9.0f);
-
-	//Blink*action1 = Blink::create(5.0f, 9);
-
-	//イージングアクション
-	//EaseIn*action2 = EaseIn::create(action1, 2.0f);
-
-	//EaseBackInOut*action2 = EaseBackInOut::create(action1);
-
-	//EaseBounceInOut*action2 = EaseBounceInOut::create(action1);
+	sprite->runAction(action1);
 	
+	
+	
+	//sprite2 = Sprite::create("kuma.png");
+	//this->addChild(sprite2);
+	//sprite2->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
 	
 	//sprite->setScale(3.0f, 3.0f);;
 	//sprite->setAnchorPoint(Vec2(0, 1.0f));//原点の設定
