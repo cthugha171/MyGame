@@ -103,48 +103,37 @@ bool HelloWorld::init()
 
    
 
-	sprite = Sprite::create("sample05.png");
-	this->addChild(sprite);
-	sprite->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
-	
-	//アクションの作成(1秒かけて　右の200、上に100動く）
-	//MoveBy*action1 = MoveBy::create(1.0f, vertex2(200, 100));
-	//ScaleBy*action1 = ScaleBy::create(1.0f,5.0f);	//ノードに対してアクションを実行する
-	//JumpTo*action1 = JumpTo::create(1.0f, Vec2(200, 100), 500.0f, 1);
+	Sprite*spr = Sprite::create("HelloWorld.png");
+	this->addChild(spr);
+	spr->setPosition(Vec2(1250.0f, visibleSize.height/6*5));
+	spr->setScale(0.25f);
 
-	//ベジェ曲線
-	//ccBezierConfig conf;
-	/*conf.controlPoint_1 = Vec2(800, 700);
-	conf.controlPoint_2 = Vec2(1000, 700);
-	conf.endPosition = Vec2(1000, 360);*/
+	/*MoveBy*move = MoveBy::create(1.0f,Vec2(-100.0f, 0));
+	MoveBy*move2 = MoveBy::create(1.0f, Vec2(100.0f, 0));
 
-	//BezierTo*action1 = BezierTo::create(2.0f, conf);
+	FadeOut*out = FadeOut::create(5.0f);
+	FadeIn*in = FadeIn::create(5.0f);
 
-	sprite->setOpacity(0);
+	Repeat*rep = Repeat::create(move, 5);
+	Repeat*rep2 = Repeat::create(move2, 5);
 
-	FadeIn* action1 = FadeIn::create(1.0f);
+	Spawn*spawn=Spawn::create(rep, out, nullptr);
+	Spawn*spawn2 = Spawn::create(rep2, in, nullptr);
 
-	sprite->runAction(action1);
-	
-	
-	
-	//sprite2 = Sprite::create("kuma.png");
-	//this->addChild(sprite2);
-	//sprite2->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
-	
-	//sprite->setScale(3.0f, 3.0f);;
-	//sprite->setAnchorPoint(Vec2(0, 1.0f));//原点の設定
-	////sprite->setRotation(45.0f);
-	//sprite2->setOpacity(0);
-	///*sprite->setColor(Color3B(255, 0, 0));*/
-	//sprite->setTextureRect(Rect(0, 0, 32, 32));//（開始位置.X,開始位置.Y,範囲.width,範囲.height）
+	Sequence*action = Sequence::create(spawn,spawn2, nullptr);
 
-	////update関数を有効にする
-	//this->scheduleUpdate();
-	//
-	//state = 0;
-	//rote = 0;
-	//blue = 0;
+	Repeat*action2 = Repeat::create(action, 5);*/
+
+	MoveTo*left = MoveTo::create(2.0f, Vec2(50, visibleSize.height / 6 * 5));
+	MoveTo*down = MoveTo::create(2.0f, Vec2(50, 50));
+	MoveTo*right = MoveTo::create(2.0f, Vec2(1250.0f, 50));
+	MoveTo*up = MoveTo::create(2.0f, Vec2(1250.0f, visibleSize.height / 6 * 5));
+
+	Sequence*action = Sequence::create(left, down, right, up, nullptr);
+
+	RepeatForever*action2 = RepeatForever::create(action);
+
+	spr->runAction(action2);
 
     return true;
 }
@@ -165,50 +154,5 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld :: update(float delta)
 {
-	//rote += 15.0f;
-
-	//sprite->setRotation(rote);
-
-	/*blue += 255.0f / 180.0f;
-
-	if (blue > 255.0f)
-	{
-		blue = 255.0f;
-	}
-
-	sprite->setColor(Color3B(255.0f-blue, 0, blue));*/
-
-	//Vec2 pos = sprite->getPosition();
-
-	//pos.x += 1;
-
-	//if (pos.x <= 50)
-	//{
-	//	sprite->setFlippedX(true);
-	//	pos.x += 1;
-	//}
-	//if (pos.x >= 1000)
-	//{
-	//	sprite->setFlippedX(true);
-	//	pos.x += -2;
-	//}
-
-	//sprite->setPosition(pos);
-
-	//
-	////スプライトの現在透明度を取得
-	//float opa ;
-	//opa = sprite->getOpacity();
- //   //徐々に薄く
-	//opa -= 1.0f;
-
-	//float opa2 = sprite2->getOpacity();
-
-	//opa2 += 1.0f;
-
-	////移動後の座標を反映
-	////sprite->setPosition(pos);
-	////透明度を反映
-	//sprite->setOpacity(opa);
-	//sprite2->setOpacity(opa2);
+	
 }
