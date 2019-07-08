@@ -24,6 +24,7 @@
 
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include "AudioEngine.h"
 
 USING_NS_CC;
 
@@ -101,43 +102,23 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
 
-   
+	DelayTime* delay = DelayTime::create(1.0f);
 
-	Sprite*spr = Sprite::create("HelloWorld.png");
-	this->addChild(spr);
-	spr->setPosition(Vec2(1250.0f, visibleSize.height/6*5));
-	spr->setScale(0.25f);
+	CallFunc* callFunc=CallFunc::create(CC_CALLBACK_0(HelloWorld::myFunction, this));
 
-	/*MoveBy*move = MoveBy::create(1.0f,Vec2(-100.0f, 0));
-	MoveBy*move2 = MoveBy::create(1.0f, Vec2(100.0f, 0));
+	CallFunc* callFunc2 = CallFunc::create(CC_CALLBACK_0(HelloWorld::myFunction2,this, "kuma.png"));
 
-	FadeOut*out = FadeOut::create(5.0f);
-	FadeIn*in = FadeIn::create(5.0f);
+	Sequence*seq = Sequence::create(delay, callFunc, delay,callFunc2,nullptr);
 
-	Repeat*rep = Repeat::create(move, 5);
-	Repeat*rep2 = Repeat::create(move2, 5);
+	
 
-	Spawn*spawn=Spawn::create(rep, out, nullptr);
-	Spawn*spawn2 = Spawn::create(rep2, in, nullptr);
+	//                                              ƒ‹[ƒv,‰¹—Ê(¬‚³‚­ŽC‚ë‚±‚Æ‚µ‚©‚Å‚«‚È‚¢)
+	audioID=experimental::AudioEngine::play2d("testbgm.mp3,",true,1.0f);
 
-	Sequence*action = Sequence::create(spawn,spawn2, nullptr);
-
-	Repeat*action2 = Repeat::create(action, 5);*/
-
-	MoveTo*left = MoveTo::create(2.0f, Vec2(50, visibleSize.height / 6 * 5));
-	MoveTo*down = MoveTo::create(2.0f, Vec2(50, 50));
-	MoveTo*right = MoveTo::create(2.0f, Vec2(1250.0f, 50));
-	MoveTo*up = MoveTo::create(2.0f, Vec2(1250.0f, visibleSize.height / 6 * 5));
-
-	Sequence*action = Sequence::create(left, down, right, up, nullptr);
-
-	RepeatForever*action2 = RepeatForever::create(action);
-
-	spr->runAction(action2);
+	this->scheduleUpdate();
 
     return true;
 }
-
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
@@ -154,5 +135,35 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld :: update(float delta)
 {
-	
+	//Œo‰ßŽžŠÔ‚ðŽæ“¾   ”Ä—p“I‚ÉŽg‚¦‚é
+	//unsigned int total = Director::getInstance()->getTotalFrames();
+
+	//if (total == 60)//1•bŒã
+	//{
+	//	//’âŽ~
+	//	//experimental::AudioEngine::stop(audioID);
+	//	//experimental::AudioEngine::stopAll;
+	//	//ˆêŽž’âŽ~
+	//	experimental::AudioEngine::pause(audioID);
+	//}
+
+	//if (total == 120)
+	//{
+	//	//ÄŠJ
+	//	experimental::AudioEngine::resume(audioID);
+	//}
+}
+
+void HelloWorld::myFunction()
+{
+	Sprite*spr = Sprite::create("HelloWorld.png");
+	this->addChild(spr);
+	spr->setPosition(500, 500);
+}
+
+void HelloWorld::myFunction2(std::string filename)
+{
+	Sprite*spr = Sprite::create(filename);
+	this->addChild(spr);
+	spr->setPosition(500, 500);
 }

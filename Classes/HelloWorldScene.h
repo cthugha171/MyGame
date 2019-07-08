@@ -36,13 +36,17 @@ public:
 	
 	void update(float delta)override;
 
+	void myFunction();
+
+	void myFunction2(std::string filename);
+
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 
-	
+	int audioID;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
