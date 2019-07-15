@@ -34,6 +34,8 @@ public:
 
     virtual bool init();
 	
+	void HelloWorld::mariJump();
+
 	void update(float delta)override;
 
     // a selector callback
@@ -42,7 +44,8 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 
-	
+	cocos2d::Sprite*sprMario;
+
 };
 
 #endif // __HELLOWORLD_SCENE_H__

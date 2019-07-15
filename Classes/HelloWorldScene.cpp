@@ -101,41 +101,61 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
 
+	Texture2D*texture = Director::getInstance()->getTextureCache()->addImage("mariFirst.png");
    
+	SpriteFrame* frame0 = SpriteFrame::createWithTexture(texture, Rect(32 * 0, 32 * 0, 32, 32));
+	SpriteFrame* frame1 = SpriteFrame::createWithTexture(texture, Rect(32 * 1, 32 * 0, 32, 32));
+	SpriteFrame* frame2 = SpriteFrame::createWithTexture(texture, Rect(32 * 2, 32 * 0, 32, 32));
+	SpriteFrame* frame3 = SpriteFrame::createWithTexture(texture, Rect(32 * 3, 32 * 0, 32, 32));
+	SpriteFrame* frame4 = SpriteFrame::createWithTexture(texture, Rect(32 * 4, 32 * 0, 32, 32));
+	SpriteFrame* frame5 = SpriteFrame::createWithTexture(texture, Rect(32 * 5, 32 * 0, 32, 32));
 
-	Sprite*spr = Sprite::create("HelloWorld.png");
-	this->addChild(spr);
-	spr->setPosition(Vec2(1250.0f, visibleSize.height/6*5));
-	spr->setScale(0.25f);
+	Texture2D *texture2 = Director::getInstance()->getTextureCache()->addImage("mariene.png");
 
-	/*MoveBy*move = MoveBy::create(1.0f,Vec2(-100.0f, 0));
-	MoveBy*move2 = MoveBy::create(1.0f, Vec2(100.0f, 0));
+	SpriteFrame* eframe0 = SpriteFrame::createWithTexture(texture2, Rect(32 * 0, 32 * 0, 32, 32));
 
-	FadeOut*out = FadeOut::create(5.0f);
-	FadeIn*in = FadeIn::create(5.0f);
 
-	Repeat*rep = Repeat::create(move, 5);
-	Repeat*rep2 = Repeat::create(move2, 5);
+	Vector<SpriteFrame*>runFrame(3);
+	runFrame.pushBack(frame0);
+	runFrame.pushBack(frame1);
+	runFrame.pushBack(frame2);
+     
 
-	Spawn*spawn=Spawn::create(rep, out, nullptr);
-	Spawn*spawn2 = Spawn::create(rep2, in, nullptr);
+	sprMario = Sprite::createWithSpriteFrame(frame0);
+	sprMario->setPosition(Vec2(visibleSize.width / 4, visibleSize.height / 4));
+	sprMario->setScale(5.0f);
+	this->addChild(sprMario);
 
-	Sequence*action = Sequence::create(spawn,spawn2, nullptr);
 
-	Repeat*action2 = Repeat::create(action, 5);*/
+	Animation*runaction = Animation::createWithSpriteFrames(runFrame, 0.2f);
 
-	MoveTo*left = MoveTo::create(2.0f, Vec2(50, visibleSize.height / 6 * 5));
-	MoveTo*down = MoveTo::create(2.0f, Vec2(50, 50));
-	MoveTo*right = MoveTo::create(2.0f, Vec2(1250.0f, 50));
-	MoveTo*up = MoveTo::create(2.0f, Vec2(1250.0f, visibleSize.height / 6 * 5));
+    Animate*animate = Animate::create(runaction);
 
-	Sequence*action = Sequence::create(left, down, right, up, nullptr);
+	Repeat*repeat = Repeat::create(animate, 4);
 
-	RepeatForever*action2 = RepeatForever::create(action);
+	CallFunc* jumpaction = CallFunc::create(CC_CALLBACK_0(HelloWorld::mariJump, this));
 
-	spr->runAction(action2);
+	MoveBy*run = MoveBy::create(2.0f, Vec2(100.0f, 0));
+
+	JumpBy*jump = JumpBy::create(2.0f, Vec2(50.0f, 0), 50.0f, 1);
+
+	Spawn*runAway = Spawn::create(run, repeat,nullptr);
+
+	Spawn*jumpUp = Spawn::create(jumpaction, jump,nullptr);
+
+	Sequence*move = Sequence::create(runAway, jumpUp,runAway, nullptr);
+
+	sprMario->runAction(move);
 
     return true;
+}
+
+void HelloWorld::mariJump()
+{
+	Texture2D*texture = Director::getInstance()->getTextureCache()->addImage("mariFirst.png");
+
+	SpriteFrame* frame4 = SpriteFrame::createWithTexture(texture, Rect(32 * 4, 32 * 0, 32, 32));
+	sprMario->setSpriteFrame(frame4);
 }
 
 
