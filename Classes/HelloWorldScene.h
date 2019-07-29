@@ -36,6 +36,16 @@ public:
 	
 	void HelloWorld::mariJump();
 
+	void HelloWorld::changeBox();
+
+	void HelloWorld::activeKinoko();
+
+	void HelloWorld::noActiveKinoko();
+
+	void HelloWorld::kameten();
+
+	void HelloWorld::turnMario();
+
 	void update(float delta)override;
 
     // a selector callback
@@ -45,6 +55,11 @@ public:
     CREATE_FUNC(HelloWorld);
 
 	cocos2d::Sprite*sprMario;
+	cocos2d::Sprite*Box;
+	cocos2d::Sprite*kinoko;
+	cocos2d::Sprite*kame;
+	cocos2d::Sprite*BackGround;
+	bool size;
 
 };
 
